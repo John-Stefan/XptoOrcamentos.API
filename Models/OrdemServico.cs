@@ -6,7 +6,7 @@ namespace XptoOrcamentos.API.Models
     {
         public int Id { get; set; }
         public string TituloServico { get; set; }
-        public DateTime DataExecucao { get; set; } = DateTime.Now;
+        public DateTime DataExecucao { get; set; }
         public decimal ValorServico { get; set; }
 
         public int ClienteId { get; set; }

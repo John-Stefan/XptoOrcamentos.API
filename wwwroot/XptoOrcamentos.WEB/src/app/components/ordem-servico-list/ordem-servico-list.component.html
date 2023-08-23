@@ -1,0 +1,37 @@
+<!-- ordem-servico-list.component.html -->
+<div class="card">
+    <div class="card-header">
+      Lista de Ordens de Serviço
+      <button (click)="novo()">Novo</button>
+    </div>
+    <div class="card-body">
+      <table class="table">
+        <thead>
+          <tr>
+            <th>ID</th>
+            <th>Título do Serviço</th>
+            <th>Data de Execução</th>
+            <th>Valor do Serviço</th>
+            <th>CPF do Prestador</th>
+            <th>CNPJ do Cliente</th>
+            <th>Ações</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let ordem of ordens">
+            <td>{{ ordem.id }}</td>
+            <td>{{ ordem.tituloServico }}</td>
+            <td>{{ ordem.dataExecucao | date }}</td>
+            <td>{{ ordem.valorServico }}</td>
+            <td>{{ ordem.prestador?.cpf }}</td>
+            <td>{{ ordem.cliente?.cnpj }}</td>
+            <td>
+              <button (click)="editar(ordem.id)">Editar</button>
+              <button (click)="excluir(ordem.id)">Excluir</button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+  

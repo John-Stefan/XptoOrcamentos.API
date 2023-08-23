@@ -10,7 +10,7 @@ using XptoOrcamentos.API.ViewModels;
 namespace XptoOrcamentos.API.Controllers
 {
     [ApiController]
-    [Route("v1")]
+    [Route("v1/ordemServicos")]
     public class OrdemServicoController : ControllerBase
     {
         private readonly IOrdemServicoService _ordemServicoService;
@@ -21,7 +21,6 @@ namespace XptoOrcamentos.API.Controllers
         }
 
         [HttpGet]
-        [Route("ordemServicos")]
         public async Task<IActionResult> GetAllAsync()
         {
             var result = await _ordemServicoService.GetAllAsync();
@@ -29,7 +28,7 @@ namespace XptoOrcamentos.API.Controllers
         }
 
         [HttpGet]
-        [Route("ordemServicos/{id}")]
+        [Route("{id}")]
         public async Task<IActionResult> GetByIdAsync([FromRoute] int id)
         {
             var result = await _ordemServicoService.GetByIdAsync(id);
@@ -41,7 +40,6 @@ namespace XptoOrcamentos.API.Controllers
         }
 
         [HttpPost]
-        [Route("ordemServicos")]
         public async Task<IActionResult> CreateAsync([FromBody] CreateOrUpdateOrdemServicoViewModel viewModel)
         {
             if (!ModelState.IsValid)            
@@ -52,7 +50,7 @@ namespace XptoOrcamentos.API.Controllers
         }
 
         [HttpPut]
-        [Route("ordemServicos/{id}")]
+        [Route("{id}")]
         public async Task<IActionResult> UpdateAsync([FromRoute] int id, [FromBody] CreateOrUpdateOrdemServicoViewModel viewModel)
         {
             if (!ModelState.IsValid)            
@@ -63,7 +61,7 @@ namespace XptoOrcamentos.API.Controllers
         }
 
         [HttpDelete]
-        [Route("ordemServicos/{id}")]
+        [Route("{id}")]
         public async Task<IActionResult> DeleteAsync(int id)
         {
             var result = await _ordemServicoService.DeleteAsync(id);

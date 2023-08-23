@@ -21,7 +21,7 @@ namespace XptoOrcamentos.API.Controllers
         public async Task<IActionResult> GetAllAsync()
         {
             var result = await _prestadorService.GetAllAsync();
-            return result.Success ? Ok(result.Data) : BadRequest(result.Message);
+            return result.Success ? Ok(result) : BadRequest(result.Message);
         }
 
         [HttpGet]
@@ -31,7 +31,7 @@ namespace XptoOrcamentos.API.Controllers
             var result = await _prestadorService.GetByIdAsync(id);
 
             if (result.Success)            
-                return Ok(result.Data);
+                return Ok(result);
             
             return result.Data == null ? NotFound(result.Message) : BadRequest(result.Message);
         }
@@ -51,7 +51,7 @@ namespace XptoOrcamentos.API.Controllers
             var result = await _prestadorService.UpdateAsync(id, viewModel);
 
             if (result.Success)
-                return Ok(result.Data);
+                return Ok(result);
 
             return BadRequest(result.Message);
         }

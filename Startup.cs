@@ -37,6 +37,8 @@ namespace XptoOrcamentos.API
             services.AddTransient<IClienteService, ClienteService>();
             services.AddTransient<IPrestadorService, PrestadorService>();
 
+            services.AddCors();
+
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "XptoOrcamentos.API", Version = "v1" });
@@ -57,6 +59,11 @@ namespace XptoOrcamentos.API
             app.UseRouting();
 
             app.UseAuthorization();
+
+            app.UseCors(builder => builder
+                .AllowAnyOrigin()
+                .AllowAnyMethod()
+                .AllowAnyHeader());
 
             app.UseEndpoints(endpoints =>
             {

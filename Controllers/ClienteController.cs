@@ -23,7 +23,7 @@ namespace XptoOrcamentos.API.Controllers
             var result = await _clienteService.GetAllAsync();
 
             if (result.Success)            
-                return Ok(result.Data);
+                return Ok(result);
             
             return BadRequest(result.Message);
         }
@@ -35,7 +35,7 @@ namespace XptoOrcamentos.API.Controllers
             var result = await _clienteService.GetByIdAsync(id);
 
             if (result.Success)            
-                return Ok(result.Data);
+                return Ok(result);
             
             return NotFound(result.Message);
         }
@@ -55,7 +55,7 @@ namespace XptoOrcamentos.API.Controllers
             var result = await _clienteService.UpdateAsync(id, viewModel);
 
             if (result.Success)            
-                return Ok(result.Data);
+                return Ok(result);
             
             return BadRequest(result.Message);
         }

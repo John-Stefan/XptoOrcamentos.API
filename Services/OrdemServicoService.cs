@@ -69,6 +69,7 @@ namespace XptoOrcamentos.API.Services
             ordemServico.ValorServico = viewModel.ValorServico;
             ordemServico.ClienteId = viewModel.ClienteId;
             ordemServico.PrestadorId = viewModel.PrestadorId;
+            ordemServico.DataExecucao = viewModel.DataExecucao;
 
             if (id == 0)            
                 await _context.AddAsync(ordemServico);            

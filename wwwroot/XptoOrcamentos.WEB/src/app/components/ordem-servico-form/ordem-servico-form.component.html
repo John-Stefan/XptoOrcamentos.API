@@ -1,0 +1,35 @@
+<form [formGroup]="ordemServicoForm" (ngSubmit)="onSubmit()">
+    <input formControlName="id" type="hidden">
+    
+    <div>
+      <label for="tituloServico">Título do Serviço:</label>
+      <input formControlName="tituloServico" type="text">
+    </div>
+  
+    <div>
+      <label for="dataExecucao">Data de Execução:</label>
+      <input formControlName="dataExecucao" type="date">
+    </div>
+  
+    <div>
+      <label for="valorServico">Valor do Serviço:</label>
+      <input formControlName="valorServico" type="number">
+    </div>
+  
+    <div>
+      <label for="clienteId">Cliente:</label>
+      <select formControlName="clienteId">
+        <option *ngFor="let cliente of clientes" [value]="cliente.id">{{ cliente.nome }}</option>
+      </select>
+    </div>
+  
+    <div>
+      <label for="prestadorId">Prestador:</label>
+      <select formControlName="prestadorId">
+        <option *ngFor="let prestador of prestadores" [value]="prestador.id">{{ prestador.nome }}</option>
+      </select>
+    </div>
+  
+    <button type="submit">Enviar</button>
+  </form>
+  
