@@ -1,0 +1,14 @@
+<form [formGroup]="form" (ngSubmit)="saveClient()">
+    <div class="form-group">
+        <label for="nome">Nome</label>
+        <input type="text" id="nome" formControlName="nome" class="form-control">
+    </div>
+    <div class="form-group">
+        <label for="cnpj">CNPJ</label>
+        <input type="text" id="cnpj" formControlName="cnpj" class="form-control">
+    </div>
+    <button type="submit" class="btn btn-primary" [disabled]="form.invalid">
+        {{ clienteId ? 'Atualizar' : 'Salvar' }}
+    </button>
+</form>
+  

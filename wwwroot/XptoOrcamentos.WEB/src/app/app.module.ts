@@ -9,12 +9,20 @@ import { OrdemServicoFormComponent } from './components/ordem-servico-form/ordem
 import { ReactiveFormsModule } from '@angular/forms';
 import { ToastrModule } from 'ngx-toastr';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { ClienteListComponent } from './components/cliente-list/cliente-list.component';
+import { ClienteFormComponent } from './components/cliente-form/cliente-form.component';
+import { PrestadorListComponent } from './components/prestador-list/prestador-list.component';
+import { PrestadorFormComponent } from './components/prestador-form/prestador-form.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     OrdemServicoListComponent,
-    OrdemServicoFormComponent
+    OrdemServicoFormComponent,
+    ClienteListComponent,
+    ClienteFormComponent,
+    PrestadorListComponent,
+    PrestadorFormComponent
   ],
   imports: [
     BrowserModule,

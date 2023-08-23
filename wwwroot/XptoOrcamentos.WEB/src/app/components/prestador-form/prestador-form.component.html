@@ -1,0 +1,14 @@
+<form [formGroup]="form" (ngSubmit)="savePrestador()">
+    <div class="form-group">
+        <label for="nome">Nome</label>
+        <input type="text" id="nome" formControlName="nome" class="form-control">
+    </div>
+    <div class="form-group">
+        <label for="cpf">CPF</label>
+        <input type="text" id="cpf" formControlName="cpf" class="form-control">
+    </div>
+    
+    <button type="submit" class="btn btn-primary" [disabled]="form.invalid">
+        {{ prestadorId ? 'Atualizar' : 'Salvar' }}
+    </button>
+</form>

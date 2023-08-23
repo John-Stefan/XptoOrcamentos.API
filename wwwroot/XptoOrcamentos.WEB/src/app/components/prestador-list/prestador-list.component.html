@@ -1,0 +1,29 @@
+<div class="card">
+    <div class="card-header">
+        Lista de Prestadores
+        <button (click)="createPrestador()">Novo</button>
+    </div>
+    <div class="card-body">
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Nome</th>
+                    <th>CPF</th>
+                    <th>Ações</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let prestador of prestadores">
+                    <td>{{ prestador.id }}</td>
+                    <td>{{ prestador.nome }}</td>
+                    <td>{{ prestador.cpf }}</td>
+                    <td>
+                        <button (click)="editar(prestador.id)">Editar</button>
+                        <button (click)="excluir(prestador.id)">Excluir</button>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>

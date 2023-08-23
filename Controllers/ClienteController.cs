@@ -25,7 +25,7 @@ namespace XptoOrcamentos.API.Controllers
             if (result.Success)            
                 return Ok(result);
             
-            return BadRequest(result.Message);
+            return BadRequest(result);
         }
 
         [HttpGet]
@@ -37,7 +37,7 @@ namespace XptoOrcamentos.API.Controllers
             if (result.Success)            
                 return Ok(result);
             
-            return NotFound(result.Message);
+            return NotFound(result);
         }
 
         [HttpPost]
@@ -45,7 +45,7 @@ namespace XptoOrcamentos.API.Controllers
         public async Task<IActionResult> CreateAsync([FromBody] CreateClienteViewModel viewModel)
         {
             var result = await _clienteService.CreateAsync(viewModel);
-            return result.Success ? CreatedAtAction(nameof(GetByIdAsync), new { id = result.Data.Id }, result.Data) : BadRequest(result.Message);
+            return result.Success ? CreatedAtAction(nameof(GetByIdAsync), new { id = result.Data.Id }, result) : BadRequest(result);
         }
 
         [HttpPut]
@@ -57,7 +57,7 @@ namespace XptoOrcamentos.API.Controllers
             if (result.Success)            
                 return Ok(result);
             
-            return BadRequest(result.Message);
+            return BadRequest(result);
         }
 
         [HttpDelete]
@@ -67,9 +67,9 @@ namespace XptoOrcamentos.API.Controllers
             var result = await _clienteService.DeleteAsync(id);
 
             if (result.Success)            
-                return NoContent();
+                return Ok(result);
             
-            return BadRequest(result.Message);
+            return BadRequest(result);
         }
     }
 }

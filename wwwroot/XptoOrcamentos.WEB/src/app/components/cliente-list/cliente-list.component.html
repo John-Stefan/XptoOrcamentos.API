@@ -1,0 +1,29 @@
+<div class="card">
+    <div class="card-header">
+        Lista de Clientes
+        <button (click)="createClient()">Novo</button>
+    </div>
+    <div class="card-body">
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Nome</th>
+                    <th>CNPJ</th>
+                    <th>Ações</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let client of clients">
+                    <td>{{ client.id }}</td>
+                    <td>{{ client.nome }}</td>
+                    <td>{{ client.cnpj }}</td>
+                    <td>
+                        <button (click)="editar(client.id)">Editar</button>
+                        <button (click)="excluir(client.id)">Excluir</button>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
