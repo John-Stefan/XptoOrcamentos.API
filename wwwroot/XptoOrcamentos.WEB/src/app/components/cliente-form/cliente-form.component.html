@@ -1,14 +1,28 @@
-<form [formGroup]="form" (ngSubmit)="saveClient()">
-    <div class="form-group">
-        <label for="nome">Nome</label>
-        <input type="text" id="nome" formControlName="nome" class="form-control">
-    </div>
-    <div class="form-group">
-        <label for="cnpj">CNPJ</label>
-        <input type="text" id="cnpj" formControlName="cnpj" class="form-control">
-    </div>
-    <button type="submit" class="btn btn-primary" [disabled]="form.invalid">
-        {{ clienteId ? 'Atualizar' : 'Salvar' }}
-    </button>
+<div class="galaxy-container">
+  <div id="stars"></div>
+  <div id="stars2"></div>
+  <div id="stars3"></div>
+</div>
+
+<form [formGroup]="form" (ngSubmit)="saveClient()" class="client-form">  
+  <mat-form-field class="form-element">
+    <mat-label>Nome</mat-label>
+    <input matInput type="text" id="nome" formControlName="nome">
+    <mat-error *ngIf="form.get('nome')?.invalid">
+      Nome é obrigatório
+    </mat-error>      
+  </mat-form-field>
+
+  <mat-form-field class="form-element">
+    <mat-label>CNPJ</mat-label>
+    <input matInput type="text" id="cnpj" formControlName="cnpj">
+    <mat-error *ngIf="form.get('cnpj')?.invalid">
+      CNPJ é obrigatório
+    </mat-error>      
+  </mat-form-field>
+
+  <button mat-raised-button color="primary" type="submit" [disabled]="form.invalid">
+    {{ clienteId ? 'Atualizar' : 'Salvar' }}
+  </button>
 </form>
   

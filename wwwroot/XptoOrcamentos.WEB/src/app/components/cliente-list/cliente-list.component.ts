@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { ClienteService } from '../../services/cliente.service';
 import { Cliente } from '../../models/cliente.model';
-import { ToastrService } from 'ngx-toastr';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-cliente-list',
@@ -11,12 +11,13 @@ import { ToastrService } from 'ngx-toastr';
 })
 export class ClienteListComponent implements OnInit {
   clients: Cliente[] = [];
+  displayedColumns: string[] = ['id', 'nome', 'cnpj', 'actions'];
 
   constructor(
     private clientService: ClienteService, 
     private router: Router,
-    private toastr: ToastrService
-    ) { }
+    private snackBar: MatSnackBar
+  ) { }
 
   ngOnInit(): void {
     this.fetchClients();
@@ -27,7 +28,9 @@ export class ClienteListComponent implements OnInit {
       if (response.success) {
         this.clients = response.data;
       } else {
-        console.error(response.message);
+        this.snackBar.open(response.message, 'Fechar', {
+          duration: 2000,
+        });
       }
     });
   }
@@ -45,18 +48,26 @@ export class ClienteListComponent implements OnInit {
       response => {
         if (response.success) {
           this.clients = this.clients.filter(client => client.id !== id);
-          this.toastr.success('Cliente excluído com sucesso.');
+          this.snackBar.open('Cliente excluído com sucesso.', 'Fechar', {
+            duration: 2000,
+          });
         } else {
-          this.toastr.error(response.message);
+          this.snackBar.open(response.message, 'Fechar', {
+            duration: 2000,
+          });
         }
       },
       error => {
         if (error && error.error && error.error.message) {
-          this.toastr.error(error.error.message);
+          this.snackBar.open(error.error.message, 'Fechar', {
+            duration: 2000,
+          });
         } else {
-          this.toastr.error('Ocorreu um erro desconhecido.');
+          this.snackBar.open('Ocorreu um erro desconhecido.', 'Fechar', {
+            duration: 2000,
+          });
         }
       }
     );
-  }  
+  }
 }

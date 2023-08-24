@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { OrdemServicoService } from '../../services/ordem-servico.service';
 import { OrdemServico } from '../../models/ordem-servico.model';
 import { Router } from '@angular/router';
+import { MatSnackBar } from '@angular/material/snack-bar'; 
 
 @Component({
   selector: 'app-ordem-servico-list',
@@ -10,10 +11,12 @@ import { Router } from '@angular/router';
 })
 export class OrdemServicoListComponent implements OnInit {
   ordens: OrdemServico[] = [];
+  displayedColumns: string[] = ['id', 'tituloServico', 'dataExecucao', 'valorServico', 'prestadorCpf', 'clienteCnpj', 'actions'];
 
   constructor(
     private ordemServicoService: OrdemServicoService,
-    private router: Router
+    private router: Router,
+    private snackBar: MatSnackBar
   ) { }
 
   ngOnInit(): void {
@@ -25,7 +28,7 @@ export class OrdemServicoListComponent implements OnInit {
       if (response.success) {
         this.ordens = response.data;
       } else {
-        console.error(response.message);
+        this.snackBar.open(response.message, 'Fechar', { duration: 3000 }); 
       }
     });
   }
@@ -35,11 +38,13 @@ export class OrdemServicoListComponent implements OnInit {
   }
 
   excluir(id: number): void {
-    this.ordemServicoService.deleteOrdem(id).subscribe(() => {
+    this.ordemServicoService.deleteOrdem(id).subscribe(
+      () => {
         this.ordens = this.ordens.filter(ordem => ordem.id !== id);
+        this.snackBar.open('Ordem de serviço excluída com sucesso.', 'Fechar', { duration: 3000 }); 
       },
       error => {
-        console.error(error.message);
+        this.snackBar.open(error.message, 'Fechar', { duration: 3000 });
       }
     );
   }
@@ -48,4 +53,3 @@ export class OrdemServicoListComponent implements OnInit {
     this.router.navigate(['/ordem-form']);
   }
 }
-

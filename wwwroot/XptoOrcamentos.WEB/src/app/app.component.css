@@ -1,37 +1,7 @@
+.spacer {
+  flex: 1 1 auto;
+}
+
 .container {
-    width: 100%;
-  }
-  
-  .navbar {
-    background-color: #333;
-    overflow: hidden;
-  }
-  
-  .navbar ul {
-    list-style-type: none;
-    margin: 0;
-    padding: 0;
-  }
-  
-  .navbar ul li {
-    float: left;
-  }
-  
-  .navbar ul li a {
-    display: block;
-    color: white;
-    text-align: center;
-    padding: 14px 20px;
-    text-decoration: none;
-  }
-  
-  .navbar ul li a:hover {
-    background-color: #555;
-    color: white;
-  }
-  
-  .content {
-    margin-top: 20px;
-    padding: 20px;
-  }
-  
+  padding: 20px;
+}

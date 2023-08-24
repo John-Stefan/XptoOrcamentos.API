@@ -1,29 +1,58 @@
-<div class="card">
-    <div class="card-header">
-        Lista de Clientes
-        <button (click)="createClient()">Novo</button>
-    </div>
-    <div class="card-body">
-        <table class="table">
-            <thead>
-                <tr>
-                    <th>ID</th>
-                    <th>Nome</th>
-                    <th>CNPJ</th>
-                    <th>Ações</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr *ngFor="let client of clients">
-                    <td>{{ client.id }}</td>
-                    <td>{{ client.nome }}</td>
-                    <td>{{ client.cnpj }}</td>
-                    <td>
-                        <button (click)="editar(client.id)">Editar</button>
-                        <button (click)="excluir(client.id)">Excluir</button>
-                    </td>
-                </tr>
-            </tbody>
-        </table>
-    </div>
+<div class="galaxy-container">
+  <div id="stars"></div>
+  <div id="stars2"></div>
+  <div id="stars3"></div>
 </div>
+
+<mat-card>
+    <mat-card-header>
+      <mat-card-title>Lista de Clientes</mat-card-title>
+      <span class="spacer"></span>
+      <button mat-raised-button color="primary" (click)="createClient()">Novo</button>
+    </mat-card-header>
+    <mat-card-content>
+      <mat-table [dataSource]="clients">
+        
+        <!-- ID Column -->
+        <ng-container matColumnDef="id">
+          <mat-header-cell *matHeaderCellDef>ID</mat-header-cell>
+          <mat-cell *matCellDef="let client">{{client.id}}</mat-cell>
+        </ng-container>
+        
+        <!-- Nome Column -->
+        <ng-container matColumnDef="nome">
+          <mat-header-cell *matHeaderCellDef>Nome</mat-header-cell>
+          <mat-cell *matCellDef="let client">{{client.nome}}</mat-cell>
+        </ng-container>
+        
+        <!-- CNPJ Column -->
+        <ng-container matColumnDef="cnpj">
+          <mat-header-cell *matHeaderCellDef>CNPJ</mat-header-cell>
+          <mat-cell *matCellDef="let client">{{client.cnpj}}</mat-cell>
+        </ng-container>
+        
+        <!-- Actions Column -->
+        <ng-container matColumnDef="actions">
+            <mat-header-cell *matHeaderCellDef>
+              <div class="actions-header">
+                <span>Ações</span>
+              </div>
+            </mat-header-cell>
+            <mat-cell *matCellDef="let ordem">
+              <div class="actions-container">
+                <button mat-icon-button color="warn" (click)="excluir(ordem.id)">
+                  <mat-icon>delete</mat-icon>
+                </button>
+                <button mat-icon-button color="primary" (click)="editar(ordem.id)">
+                  <mat-icon>edit</mat-icon>
+                </button>
+              </div>
+            </mat-cell>
+          </ng-container> 
+  
+        <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+        <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+      </mat-table>
+    </mat-card-content>
+  </mat-card>
+  

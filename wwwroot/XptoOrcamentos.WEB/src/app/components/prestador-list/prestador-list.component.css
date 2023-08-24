@@ -1,0 +1,79 @@
+.mat-card {
+  margin: 20px;
+}
+
+.mat-card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.spacer {
+  flex: 1 1 auto;
+}
+
+.actions-container {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  width: 100%;
+}
+
+.actions-header {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  width: 100%;
+}
+
+.actions-header span {
+  margin-right: 40px;
+}
+
+/*Galaxia*/
+
+.galaxy-container {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100vh;
+  background: #000;
+  z-index: -1;
+}
+
+#stars, #stars2, #stars3 {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  width: 100%;
+  height: 100%;
+  background: transparent;
+}
+
+#stars {
+  z-index: 1;
+  background: black url('http://www.script-tutorials.com/demos/360/images/stars.png') repeat top center;
+  opacity: 0.2;
+}
+
+#stars2 {
+  z-index: 2;
+  background: transparent url('http://www.script-tutorials.com/demos/360/images/stars.png') repeat top center;
+  opacity: 0.5;
+  animation: move-background linear 100s infinite;
+}
+
+#stars3 {
+  z-index: 3;
+  background: transparent url('http://www.script-tutorials.com/demos/360/images/stars.png') repeat top center;
+  opacity: 0.9;
+  animation: move-background linear 50s infinite;
+}
+
+@keyframes move-background{
+    from {background-position:0 0;}
+    to {background-position: 0 10000px;}
+}

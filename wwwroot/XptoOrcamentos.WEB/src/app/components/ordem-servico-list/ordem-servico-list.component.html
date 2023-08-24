@@ -1,37 +1,76 @@
-<!-- ordem-servico-list.component.html -->
-<div class="card">
-    <div class="card-header">
-      Lista de Ordens de Serviço
-      <button (click)="novo()">Novo</button>
-    </div>
-    <div class="card-body">
-      <table class="table">
-        <thead>
-          <tr>
-            <th>ID</th>
-            <th>Título do Serviço</th>
-            <th>Data de Execução</th>
-            <th>Valor do Serviço</th>
-            <th>CPF do Prestador</th>
-            <th>CNPJ do Cliente</th>
-            <th>Ações</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr *ngFor="let ordem of ordens">
-            <td>{{ ordem.id }}</td>
-            <td>{{ ordem.tituloServico }}</td>
-            <td>{{ ordem.dataExecucao | date }}</td>
-            <td>{{ ordem.valorServico }}</td>
-            <td>{{ ordem.prestador?.cpf }}</td>
-            <td>{{ ordem.cliente?.cnpj }}</td>
-            <td>
-              <button (click)="editar(ordem.id)">Editar</button>
-              <button (click)="excluir(ordem.id)">Excluir</button>
-            </td>
-          </tr>
-        </tbody>
-      </table>
-    </div>
-  </div>
-  
+<div class="galaxy-container">
+  <div id="stars"></div>
+  <div id="stars2"></div>
+  <div id="stars3"></div>
+</div>
+
+<mat-card>
+  <mat-card-header>
+    <mat-card-title>Lista de Ordens de Serviço</mat-card-title>
+    <span class="spacer"></span>
+    <button mat-raised-button color="primary" (click)="novo()">Novo</button>
+  </mat-card-header>
+
+  <mat-card-content>
+    <mat-table [dataSource]="ordens">
+      
+      <!-- ID Column -->
+      <ng-container matColumnDef="id">
+        <mat-header-cell *matHeaderCellDef>ID</mat-header-cell>
+        <mat-cell *matCellDef="let ordem">{{ordem.id}}</mat-cell>
+      </ng-container>
+      
+      <!-- Título do Serviço Column -->
+      <ng-container matColumnDef="tituloServico">
+        <mat-header-cell *matHeaderCellDef>Título do Serviço</mat-header-cell>
+        <mat-cell *matCellDef="let ordem">{{ordem.tituloServico}}</mat-cell>
+      </ng-container>
+      
+      <!-- Data de Execução Column -->
+      <ng-container matColumnDef="dataExecucao">
+        <mat-header-cell *matHeaderCellDef>Data de Execução</mat-header-cell>
+        <mat-cell *matCellDef="let ordem">{{ordem.dataExecucao | date}}</mat-cell>
+      </ng-container>
+      
+      <!-- Valor do Serviço Column -->
+      <ng-container matColumnDef="valorServico">
+        <mat-header-cell *matHeaderCellDef>Valor do Serviço</mat-header-cell>
+        <mat-cell *matCellDef="let ordem">{{ordem.valorServico}}</mat-cell>
+      </ng-container>
+      
+      <!-- CPF do Prestador Column -->
+      <ng-container matColumnDef="prestadorCpf">
+        <mat-header-cell *matHeaderCellDef>CPF do Prestador</mat-header-cell>
+        <mat-cell *matCellDef="let ordem">{{ordem.prestador?.cpf}}</mat-cell>
+      </ng-container>
+      
+      <!-- CNPJ do Cliente Column -->
+      <ng-container matColumnDef="clienteCnpj">
+        <mat-header-cell *matHeaderCellDef>CNPJ do Cliente</mat-header-cell>
+        <mat-cell *matCellDef="let ordem">{{ordem.cliente?.cnpj}}</mat-cell>
+      </ng-container>
+
+      <!-- Actions Column -->
+      <ng-container matColumnDef="actions">
+        <mat-header-cell *matHeaderCellDef>
+          <div class="actions-header">
+            <span>Ações</span>
+          </div>
+        </mat-header-cell>
+        <mat-cell *matCellDef="let ordem">
+          <div class="actions-container">
+            <button mat-icon-button color="warn" (click)="excluir(ordem.id)">
+              <mat-icon>delete</mat-icon>
+            </button>
+            <button mat-icon-button color="primary" (click)="editar(ordem.id)">
+              <mat-icon>edit</mat-icon>
+            </button>
+          </div>
+        </mat-cell>
+      </ng-container>        
+
+      <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+      <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+    </mat-table>
+  </mat-card-content>
+</mat-card>

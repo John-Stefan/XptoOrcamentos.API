@@ -1,29 +1,57 @@
-<div class="card">
-    <div class="card-header">
-        Lista de Prestadores
-        <button (click)="createPrestador()">Novo</button>
-    </div>
-    <div class="card-body">
-        <table class="table">
-            <thead>
-                <tr>
-                    <th>ID</th>
-                    <th>Nome</th>
-                    <th>CPF</th>
-                    <th>Ações</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr *ngFor="let prestador of prestadores">
-                    <td>{{ prestador.id }}</td>
-                    <td>{{ prestador.nome }}</td>
-                    <td>{{ prestador.cpf }}</td>
-                    <td>
-                        <button (click)="editar(prestador.id)">Editar</button>
-                        <button (click)="excluir(prestador.id)">Excluir</button>
-                    </td>
-                </tr>
-            </tbody>
-        </table>
-    </div>
+<div class="galaxy-container">
+  <div id="stars"></div>
+  <div id="stars2"></div>
+  <div id="stars3"></div>
 </div>
+
+<mat-card>
+  <mat-card-header>
+    <mat-card-title>Lista de Prestadores</mat-card-title>
+    <span class="spacer"></span>
+    <button mat-raised-button color="primary" (click)="createPrestador()">Novo</button>
+  </mat-card-header>
+  <mat-card-content>
+    <mat-table [dataSource]="prestadores">
+      
+      <!-- ID Column -->
+      <ng-container matColumnDef="id">
+        <mat-header-cell *matHeaderCellDef>ID</mat-header-cell>
+        <mat-cell *matCellDef="let prestador">{{prestador.id}}</mat-cell>
+      </ng-container>
+      
+      <!-- Nome Column -->
+      <ng-container matColumnDef="nome">
+        <mat-header-cell *matHeaderCellDef>Nome</mat-header-cell>
+        <mat-cell *matCellDef="let prestador">{{prestador.nome}}</mat-cell>
+      </ng-container>
+      
+      <!-- CPF Column -->
+      <ng-container matColumnDef="cpf">
+        <mat-header-cell *matHeaderCellDef>CPF</mat-header-cell>
+        <mat-cell *matCellDef="let prestador">{{prestador.cpf}}</mat-cell>
+      </ng-container>
+      
+      <!-- Actions Column -->
+      <ng-container matColumnDef="actions">
+          <mat-header-cell *matHeaderCellDef>
+            <div class="actions-header">
+              <span>Ações</span>
+            </div>
+          </mat-header-cell>
+          <mat-cell *matCellDef="let prestador">
+            <div class="actions-container">
+              <button mat-icon-button color="warn" (click)="excluir(prestador.id)">
+                <mat-icon>delete</mat-icon>
+              </button>
+              <button mat-icon-button color="primary" (click)="editar(prestador.id)">
+                <mat-icon>edit</mat-icon>
+              </button>
+            </div>
+          </mat-cell>
+        </ng-container> 
+
+      <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+      <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+    </mat-table>
+  </mat-card-content>
+</mat-card>

@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { PrestadorService } from '../../services/prestador.service';
-import { ToastrService } from 'ngx-toastr';
+import { MatSnackBar } from '@angular/material/snack-bar';
 import { Prestador } from '../../models/prestador.model';
 
 @Component({
@@ -19,7 +19,7 @@ export class PrestadorFormComponent implements OnInit {
     private route: ActivatedRoute,
     private router: Router,
     private prestadorService: PrestadorService,
-    private toastr: ToastrService
+    private snackBar: MatSnackBar
   ) {
     this.form = this.fb.group({
       nome: ['', Validators.required],
@@ -41,15 +41,15 @@ export class PrestadorFormComponent implements OnInit {
   savePrestador(): void {
     if (this.form.valid) {
       const prestadorData: Prestador = this.form.value;
-
+  
       if (this.prestadorId) {
         this.prestadorService.updatePrestador(this.prestadorId, prestadorData).subscribe(
           response => {
             if (response.success) {
-              this.toastr.success('Prestador atualizado com sucesso.');
+              this.snackBar.open('Prestador atualizado com sucesso.', 'Fechar', { duration: 3000 });
               this.router.navigate(['/prestador-list']);
             } else {
-              this.toastr.error(response.message);
+              this.snackBar.open(response.message, 'Fechar', { duration: 3000 });
             }
           },
           error => this.handleError(error)
@@ -58,17 +58,17 @@ export class PrestadorFormComponent implements OnInit {
         this.prestadorService.createPrestador(prestadorData).subscribe(
           response => {
             if (response.success) {
-              this.toastr.success('Prestador criado com sucesso.');
+              this.snackBar.open('Prestador criado com sucesso.', 'Fechar', { duration: 3000 });
               this.router.navigate(['/prestador-list']);
             } else {
-              this.toastr.error(response.message);
+              this.snackBar.open(response.message, 'Fechar', { duration: 3000 });
             }
           },
           error => this.handleError(error)
         );
       }
     } else {
-      this.toastr.warning('Por favor, preencha todos os campos obrigatórios.');
+      this.snackBar.open('Por favor, preencha todos os campos obrigatórios.', 'Fechar', { duration: 3000 });
     }
   }
 
@@ -77,13 +77,13 @@ export class PrestadorFormComponent implements OnInit {
       const validationErrors = error.error.errors;
       for (const field in validationErrors) {
         if (validationErrors.hasOwnProperty(field)) {
-          this.toastr.error(`Erro de validação em ${field}: ${validationErrors[field]}`);
+          this.snackBar.open(`Erro de validação em ${field}: ${validationErrors[field]}`, 'Fechar', { duration: 3000 });
         }
       }
     } else if (error && error.error && error.error.message) {
-      this.toastr.error(error.error.message);
+      this.snackBar.open(error.error.message, 'Fechar', { duration: 3000 });
     } else {
-      this.toastr.error('Ocorreu um erro desconhecido.');
+      this.snackBar.open('Ocorreu um erro desconhecido.', 'Fechar', { duration: 3000 });
     }
-  }
+  }  
 }

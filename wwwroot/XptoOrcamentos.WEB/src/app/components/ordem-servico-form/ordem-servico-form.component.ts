@@ -9,8 +9,8 @@ import { Prestador } from '../../models/prestador.model';
 import { OrdemServico } from '../../models/ordem-servico.model';
 import { ReturnDTO } from '../../models/return-dto.model';
 import * as moment from 'moment';
-import { ToastrService } from 'ngx-toastr';
 import { Router } from '@angular/router';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-ordem-servico-form',
@@ -29,8 +29,8 @@ export class OrdemServicoFormComponent implements OnInit {
     private ordemServicoService: OrdemServicoService,
     private clienteService: ClienteService,
     private prestadorService: PrestadorService,
-    private toastr: ToastrService,
-    private router: Router
+    private router: Router,
+    private snackBar: MatSnackBar
   ) { }
 
   ngOnInit(): void {
@@ -81,36 +81,35 @@ export class OrdemServicoFormComponent implements OnInit {
 
   onSubmit(): void {
     const ordemServico: OrdemServico = this.ordemServicoForm.value;
+    let serviceCall;
+  
     if (this.id) {
-      // Atualizar
-      this.ordemServicoService.updateOrdem(this.id, ordemServico).subscribe(
-        (response: ReturnDTO<any>) => {
-          if (response.success) {
-            this.toastr.success('Ordem de serviço atualizada com sucesso!', 'Sucesso');
-            this.router.navigate(['/ordens']);
-          }
-        },
-        error => {
-          this.toastr.error('Erro ao atualizar a ordem de serviço.', 'Erro');
-          this.router.navigate(['/ordens']);
-          console.error(error.message);
-        }
-      );
+      serviceCall = this.ordemServicoService.updateOrdem(this.id, ordemServico);
     } else {
-      // Criar
-      this.ordemServicoService.createOrdem(ordemServico).subscribe(
-        (response: ReturnDTO<OrdemServico>) => {
-          if (response.success) {
-            this.toastr.success('Ordem de serviço criada com sucesso!', 'Sucesso');
-            this.router.navigate(['/ordens']);
-          }
-        },
-        error => {
-          this.toastr.error('Erro ao criar a ordem de serviço.', 'Erro');
-          this.router.navigate(['/ordens']);
-          console.error(error.message);
-        }
-      );
+      serviceCall = this.ordemServicoService.createOrdem(ordemServico);
     }
-  }
+  
+    serviceCall.subscribe(
+      (response: ReturnDTO<any>) => {
+        if (response.success) {
+          const message = this.id ? 'Ordem de serviço atualizada com sucesso!' : 'Ordem de serviço criada com sucesso!';
+          this.snackBar.open(message, 'Fechar', {
+            duration: 3000,
+          });
+          this.router.navigate(['/ordens']);
+        } else {
+          this.snackBar.open(response.message, 'Fechar', {
+            duration: 3000,
+          });
+        }
+      },
+      error => {
+        const errorMessage = error.message ? error.message : 'Erro desconhecido ao processar a ordem de serviço.';
+        this.snackBar.open(errorMessage, 'Fechar', {
+          duration: 3000,
+        });
+        this.router.navigate(['/ordens']);
+      }
+    );
+  }  
 }

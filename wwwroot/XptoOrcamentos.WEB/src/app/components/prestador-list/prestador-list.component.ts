@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { PrestadorService } from '../../services/prestador.service';
 import { Prestador } from '../../models/prestador.model';
-import { ToastrService } from 'ngx-toastr';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-prestador-list',
@@ -11,11 +11,12 @@ import { ToastrService } from 'ngx-toastr';
 })
 export class PrestadorListComponent implements OnInit {
   prestadores: Prestador[] = [];
+  displayedColumns: string[] = ['id', 'nome', 'cpf', 'actions'];
 
   constructor(
     private prestadorService: PrestadorService,
     private router: Router,
-    private toastr: ToastrService
+    private snackBar: MatSnackBar
   ) { }
 
   ngOnInit(): void {
@@ -27,7 +28,7 @@ export class PrestadorListComponent implements OnInit {
       if (response.success) {
         this.prestadores = response.data;
       } else {
-        console.error(response.message);
+        this.snackBar.open(response.message, 'Fechar', { duration: 2000 });
       }
     });
   }
@@ -45,16 +46,16 @@ export class PrestadorListComponent implements OnInit {
       response => {
         if (response.success) {
           this.prestadores = this.prestadores.filter(prestador => prestador.id !== id);
-          this.toastr.success('Prestador excluído com sucesso.');
+          this.snackBar.open('Prestador excluído com sucesso.', 'Fechar', { duration: 2000 });
         } else {
-          this.toastr.error(response.message);
+          this.snackBar.open(response.message, 'Fechar', { duration: 2000 });
         }
       },
       error => {
         if (error && error.error && error.error.message) {
-          this.toastr.error(error.error.message);
+          this.snackBar.open(error.error.message, 'Fechar', { duration: 2000 });
         } else {
-          this.toastr.error('Ocorreu um erro desconhecido.');
+          this.snackBar.open('Ocorreu um erro desconhecido.', 'Fechar', { duration: 2000 });
         }
       }
     );

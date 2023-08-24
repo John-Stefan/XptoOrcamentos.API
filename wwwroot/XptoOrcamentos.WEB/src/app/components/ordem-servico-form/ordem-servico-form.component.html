@@ -1,35 +1,38 @@
-<form [formGroup]="ordemServicoForm" (ngSubmit)="onSubmit()">
-    <input formControlName="id" type="hidden">
-    
-    <div>
-      <label for="tituloServico">Título do Serviço:</label>
-      <input formControlName="tituloServico" type="text">
-    </div>
-  
-    <div>
-      <label for="dataExecucao">Data de Execução:</label>
-      <input formControlName="dataExecucao" type="date">
-    </div>
-  
-    <div>
-      <label for="valorServico">Valor do Serviço:</label>
-      <input formControlName="valorServico" type="number">
-    </div>
-  
-    <div>
-      <label for="clienteId">Cliente:</label>
-      <select formControlName="clienteId">
-        <option *ngFor="let cliente of clientes" [value]="cliente.id">{{ cliente.nome }}</option>
-      </select>
-    </div>
-  
-    <div>
-      <label for="prestadorId">Prestador:</label>
-      <select formControlName="prestadorId">
-        <option *ngFor="let prestador of prestadores" [value]="prestador.id">{{ prestador.nome }}</option>
-      </select>
-    </div>
-  
-    <button type="submit">Enviar</button>
-  </form>
-  
+<div class="galaxy-container">
+  <div id="stars"></div>
+  <div id="stars2"></div>
+  <div id="stars3"></div>
+</div>
+
+<form [formGroup]="ordemServicoForm" (ngSubmit)="onSubmit()" class="service-form">
+  <mat-form-field class="form-element">
+    <mat-label>Título do Serviço</mat-label>
+    <input matInput formControlName="tituloServico">
+  </mat-form-field>
+
+  <mat-form-field class="form-element">
+    <mat-label>Data de Execução</mat-label>
+    <input matInput formControlName="dataExecucao" type="date">
+  </mat-form-field>
+
+  <mat-form-field class="form-element">
+    <mat-label>Valor do Serviço</mat-label>
+    <input matInput formControlName="valorServico" type="number">
+  </mat-form-field>
+
+  <mat-form-field class="form-element">
+    <mat-label>Cliente</mat-label>
+    <mat-select formControlName="clienteId">
+      <mat-option *ngFor="let cliente of clientes" [value]="cliente.id">{{ cliente.nome }}</mat-option>
+    </mat-select>
+  </mat-form-field>
+
+  <mat-form-field class="form-element">
+    <mat-label>Prestador</mat-label>
+    <mat-select formControlName="prestadorId">
+      <mat-option *ngFor="let prestador of prestadores" [value]="prestador.id">{{ prestador.nome }}</mat-option>
+    </mat-select>
+  </mat-form-field>
+
+  <button mat-raised-button type="submit">Enviar</button>
+</form>
