@@ -30,6 +30,10 @@
     margin-right: 40px;
 }
 
+mat-card-title {
+    color: white !important;
+}
+
 /*Galaxia*/
 
 .galaxy-container {
